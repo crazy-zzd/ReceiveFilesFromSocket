@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@class NetWork;
+
+@interface ViewController : UIViewController{
+    NetWork * mainNetWork;
+}
+
+@property (nonatomic, strong) UIImageView * mainImgView;
 
 @end

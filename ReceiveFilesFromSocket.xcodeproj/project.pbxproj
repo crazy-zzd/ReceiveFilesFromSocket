@@ -21,6 +21,8 @@
 		621F0B0F18D80D86005FA0C5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 621F0AF118D80D85005FA0C5 /* UIKit.framework */; };
 		621F0B1718D80D86005FA0C5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 621F0B1518D80D86005FA0C5 /* InfoPlist.strings */; };
 		621F0B1918D80D86005FA0C5 /* ReceiveFilesFromSocketTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 621F0B1818D80D86005FA0C5 /* ReceiveFilesFromSocketTests.m */; };
+		621F0B2B18D80DF9005FA0C5 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 621F0B2A18D80DF9005FA0C5 /* AsyncSocket.m */; };
+		621F0B2E18D80E04005FA0C5 /* NetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 621F0B2D18D80E04005FA0C5 /* NetWork.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,11 @@
 		621F0B1418D80D86005FA0C5 /* ReceiveFilesFromSocketTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ReceiveFilesFromSocketTests-Info.plist"; sourceTree = "<group>"; };
 		621F0B1618D80D86005FA0C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		621F0B1818D80D86005FA0C5 /* ReceiveFilesFromSocketTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveFilesFromSocketTests.m; sourceTree = "<group>"; };
+		621F0B2818D80DEA005FA0C5 /* ReceiveMessageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiveMessageDelegate.h; sourceTree = "<group>"; };
+		621F0B2918D80DF9005FA0C5 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		621F0B2A18D80DF9005FA0C5 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		621F0B2C18D80E04005FA0C5 /* NetWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWork.h; sourceTree = "<group>"; };
+		621F0B2D18D80E04005FA0C5 /* NetWork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWork.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +119,12 @@
 		621F0AF318D80D85005FA0C5 /* ReceiveFilesFromSocket */ = {
 			isa = PBXGroup;
 			children = (
-				621F0AFC18D80D86005FA0C5 /* AppDelegate.h */,
+				621F0B2F18D80F94005FA0C5 /* headers */,
+				621F0B2A18D80DF9005FA0C5 /* AsyncSocket.m */,
 				621F0AFD18D80D86005FA0C5 /* AppDelegate.m */,
-				621F0AFF18D80D86005FA0C5 /* Main.storyboard */,
-				621F0B0218D80D86005FA0C5 /* ViewController.h */,
+				621F0B2D18D80E04005FA0C5 /* NetWork.m */,
 				621F0B0318D80D86005FA0C5 /* ViewController.m */,
+				621F0AFF18D80D86005FA0C5 /* Main.storyboard */,
 				621F0B0518D80D86005FA0C5 /* Images.xcassets */,
 				621F0AF418D80D85005FA0C5 /* Supporting Files */,
 			);
@@ -150,6 +158,18 @@
 				621F0B1518D80D86005FA0C5 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		621F0B2F18D80F94005FA0C5 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				621F0AFC18D80D86005FA0C5 /* AppDelegate.h */,
+				621F0B2C18D80E04005FA0C5 /* NetWork.h */,
+				621F0B0218D80D86005FA0C5 /* ViewController.h */,
+				621F0B2818D80DEA005FA0C5 /* ReceiveMessageDelegate.h */,
+				621F0B2918D80DF9005FA0C5 /* AsyncSocket.h */,
+			);
+			name = headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,8 +270,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				621F0B0418D80D86005FA0C5 /* ViewController.m in Sources */,
+				621F0B2E18D80E04005FA0C5 /* NetWork.m in Sources */,
 				621F0AFE18D80D86005FA0C5 /* AppDelegate.m in Sources */,
 				621F0AFA18D80D86005FA0C5 /* main.m in Sources */,
+				621F0B2B18D80DF9005FA0C5 /* AsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
