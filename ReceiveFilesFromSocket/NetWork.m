@@ -98,6 +98,7 @@
         fileName = tempArray[0];
         fileLength = [(NSString *)tempArray[1] intValue];
         return;
+        
     }
     
     [receiveData appendData:data];
