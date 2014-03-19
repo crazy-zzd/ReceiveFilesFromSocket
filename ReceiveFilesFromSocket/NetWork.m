@@ -11,7 +11,7 @@
 #include <arpa/inet.h>
 #import "ViewController.h"
 
-NSString * const NetWorkDefaultHost = @"192.168.1.106";
+NSString * const NetWorkDefaultHost = @"127.0.0.1";
 int const NetWorkDefaultPort = 1235;
 
 @implementation NetWork

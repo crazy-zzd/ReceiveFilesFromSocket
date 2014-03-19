@@ -27,6 +27,12 @@
     
     [_fileProgress setHidden:YES];
     
+    [self initAlertViews];
+
+}
+
+- (void)initAlertViews
+{
     NSString * thePortStr = [NSString stringWithFormat:@"Port是服务器端的端口号\n默认为%d", NetWorkDefaultPort];
     thePortAlertView = [[UIAlertView alloc] initWithTitle:@"输入Port！" message:thePortStr delegate:nil cancelButtonTitle:@"保持默认" otherButtonTitles:@"修改",nil];
     [thePortAlertView setAlertViewStyle:UIAlertViewStylePlainTextInput];
@@ -43,7 +49,6 @@
     [theHostAlertView show];
     textField = [theHostAlertView textFieldAtIndex:0];
     textField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
-
 }
 
 -(NSUInteger)supportedInterfaceOrientations{
