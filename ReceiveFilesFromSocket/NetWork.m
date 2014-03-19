@@ -11,33 +11,40 @@
 #include <arpa/inet.h>
 #import "ViewController.h"
 
+NSString * const NetWorkDefaultHost = @"192.168.1.106";
+int const NetWorkDefaultPort = 1235;
+
 @implementation NetWork
 
+
 @synthesize delegate;
-@synthesize viewController;
+//@synthesize mainPort;
+//@synthesize broadCastHost;
+//@synthesize viewController;
 
 #pragma mark - init
 - (id)init
 {
     self = [super init];
     if (self) {
-        broadCastHost = @"192.168.1.109";
+        
+        
+        broadCastHost = NetWorkDefaultHost;
 //        broadCastHost = @"127.0.0.1";
 //        broadCastHost = @"222.20.59.197";
 //        broadCastHost = @"202.114.20.91";
         
-        
-        
-        mainPort = 12345;
-        
-        userName = @"zjj";
+        mainPort = NetWorkDefaultPort;
+
+//        [self initSocket];
+
         
         mainFileType = NoneType;
+        
         fileName = @"";
         
-        [self initSocket];
-        
         fileLength = 0;
+        
         receiveData = [[NSMutableData alloc] initWithLength:0];
         
     }
@@ -61,31 +68,41 @@
 
 
 #pragma mark - 对外接口
-//- (void)sendMessageWith:(NSString *)theMessage
-//{
-//    NSString * sendMessage = [NSString stringWithFormat:@"zjj : %@",theMessage];
-//    NSData * sendData = [sendMessage dataUsingEncoding:NSUTF8StringEncoding];
-//    [mainTcpSocket writeData:sendData withTimeout:-1 tag:1];
-//}
+
+- (void)setBroadCastHost:(NSString *)theHost
+{
+    broadCastHost = theHost;
+}
+
+- (void)setMainPort:(int)theMainPort
+{
+    mainPort = theMainPort;
+    [self initSocket];
+}
 
 #pragma mark - private methods
 
-//- (NSString *)handleSendMessage:(NSString *)theSendMessage
-//{
-//    return [NSString stringWithFormat:@"%@ : %@" ,userName, theSendMessage];
-//}
+- (BOOL)isPNGFiles:(NSString *)theFileName
+{
+    NSString * suffix = [theFileName substringFromIndex:[theFileName length] - 4];
+    if ([suffix isEqualToString:@".png"]) {
+        return YES;
+    }
+    return NO;
+}
 
 #pragma mark - AsyncSocket Delegate
 
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-    viewController.mainImgView.image = [UIImage imageNamed:@"artwork"];
     NSLog(@"确认连接成功");
+    [self.delegate receiveMessageWith:@"连接成功"];
 }
 
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
-    NSLog(@"disconnect");
+    NSLog(@"断开连接");
+    [self.delegate receiveMessageWith:@"已断开连接"];
 }
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
@@ -97,40 +114,35 @@
         NSArray * tempArray = [tempStr componentsSeparatedByString:@"+"];
         fileName = tempArray[0];
         fileLength = [(NSString *)tempArray[1] intValue];
-        return;
         
+        if ([self isPNGFiles:fileName]) {
+            mainFileType = PngType;
+        }
+        else{
+            mainFileType = TextType;
+        }
+        return;
     }
     
     [receiveData appendData:data];
-    fileLength = fileLength - (int)[data length];
-    if (fileLength == 0) {
-        UIImage * receiveImg = [UIImage imageWithData:receiveData];
-        viewController.mainImgView.image = receiveImg;
+    NSLog(@"正在传输文件：%f", 1 - (fileLength - [receiveData length]) / (float)fileLength);
+    [self.delegate receiveMessageWith:@"正在传输文件"];
+    [self.delegate fileProgress:1 - (fileLength - [receiveData length]) / (float)fileLength];
+    if (fileLength == [receiveData length]) {
+        if (mainFileType == PngType) {
+            UIImage * receiveImg = [UIImage imageWithData:receiveData];
+            [self.delegate pngFile:receiveImg];
+//            viewController.mainImgView.image = receiveImg;
+        }
+        else{
+            NSString * receiveMessage = [[NSString alloc] initWithData:receiveData encoding:NSUTF8StringEncoding];
+            NSLog(@"%@",receiveMessage);
+            [self.delegate textFile:receiveMessage];
+        }
+        NSLog(@"传输成功");
+        [self.delegate receiveMessageWith:@"传输成功"];
         receiveData = [[NSMutableData alloc] initWithLength:0];
+        fileLength = 0;
     }
-//    NSLog(@"%lu",(unsigned long)[data length]);
-//    NSLog(@"%@",data);
-    
-    
-//    if (mainFileType == NoneType) {
-//        fileName = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    }
-//    NSString * receiveMessage = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//    [self.delegate receiveMessageWith:receiveMessage];
-//    NSLog(@"%@",receiveMessage);
-
-//    if (!receiveMessage) {
-//        [receiveData appendData:data];
-//        UIImage * receiveImg = [UIImage imageWithData:data];
-//        viewController.mainImgView.image = receiveImg;
-//    }
-//    
-//    UIImage * receiveImg = [UIImage imageWithData:data];
-//
-//    viewController.mainImgView.image = receiveImg;
-
 }
-
-
-
 @end

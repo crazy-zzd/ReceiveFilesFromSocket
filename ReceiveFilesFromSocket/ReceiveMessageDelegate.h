@@ -13,4 +13,10 @@
 @required
 - (void)receiveMessageWith:(NSString *)theMessage;
 
+- (void)fileProgress:(float)theFilePercent;
+
+- (void)pngFile:(UIImage *)theFileImg;
+
+- (void)textFile:(NSString *)theTextStr;
+
 @end
