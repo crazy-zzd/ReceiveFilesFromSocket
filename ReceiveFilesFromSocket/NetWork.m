@@ -12,7 +12,7 @@
 #import "ViewController.h"
 
 NSString * const NetWorkDefaultHost = @"127.0.0.1";
-int const NetWorkDefaultPort = 1235;
+int const NetWorkDefaultPort = 1234;
 
 @implementation NetWork
 

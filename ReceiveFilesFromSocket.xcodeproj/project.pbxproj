@@ -482,6 +482,7 @@
 				621F0B1E18D80D86005FA0C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		621F0B1F18D80D86005FA0C5 /* Build configuration list for PBXNativeTarget "ReceiveFilesFromSocketTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +491,7 @@
 				621F0B2118D80D86005FA0C5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
